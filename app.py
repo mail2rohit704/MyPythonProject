@@ -18,7 +18,7 @@ os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 # ROUTE: Index Page
 # -----------------------------
 @app.route('/')
-def index():
+def home():
     return render_template('index.html')
 
 # -----------------------------
