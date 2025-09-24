@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pea Health Prediction - Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='resultstyle.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>🌱 Processing Results</h1>
+            <p>Your pea seeds image has been analyzed successfully</p>
+            <a href="{{ url_for('index') }}" class="nav-btn">← Analyze Another Image</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="results-container">
+            <!-- IMAGE ANALYSIS -->
+            <div class="result-card">
+                <h2>📸 Image Analysis</h2>
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <h3>Original Image</h3>
+                        {% if input_image_url %}
+                        <img src="{{ input_image_url  }}" 
+                             class="result-image clickable" alt="Original seed image" onclick="openModal(this)">
+                        {% else %}
+                        <div class="result-image placeholder">Original Image</div>
+                        {% endif %}
+                    </div>
+                    <div class="image-wrapper">
+                        <h3>Processed Image</h3>
+                        {% if image_output_url %}
+                        <img src="{{ image_output_url }}" 
+                             class="result-image clickable" alt="Processed seed image" onclick="openModal(this)">
+                        {% else %}
+                        <div class="result-image placeholder">Processed Image</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div id="imageModal" class="modal">
+              <span class="close" onclick="closeModal()">&times;</span>
+              <img class="modal-content" id="modalImage">
+              <div id="caption"></div>
+            </div>
+            <!-- STATUS -->
+            <div class="result-card">
+                <h2>✅ Analysis Status</h2>
+                <div class="processing-status">
+                    <span>Image Successfully Analyzed</span>
+                </div>
+                
+                <ul class="detail-list">
+                    <li><strong>Status:</strong> Completed</li>
+                    <li><strong>Total Seeds Detected:</strong> {{ total_seeds }}</li>
+                    <li><strong>Confidence:</strong> {{ confidence }}</li>
+                </ul>
+            </div>
+
+            <!-- DETAILS -->
+            <div class="result-card processing-details">
+                <h2>📋 Analysis Details</h2>
+                <ul class="detail-list">
+                    <li><strong>Healthy Seeds:</strong> {{ healthy }}</li>
+                    <li><strong>Infected Seeds:</strong> {{ infected }}</li>
+                    <li><strong>Health Ratio:</strong> 
+                        {% if total_seeds and total_seeds|int > 0 %}
+                          {{ (healthy / total_seeds * 100) | round(2) }}% Healthy
+                        {% else %}
+                          N/A
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- DOWNLOADS -->
+        <div class="download-section">
+            <h2>📥 Download Results</h2>
+            <div class="download-hint">
+            <p>Download your analysis results in different formats</p>
+            </div>
+            <div class="download-buttons">
+                <a class="download-btn csv" 
+                   href="{{ csv_url }}">
+                   📊 Download CSV
+                </a>
+                <a class="download-btn pdf" 
+                   href="{{ pdf_url }}"
+                   target="_blank"
+                   >
+                   📄 Download PDF
+                </a>
+                <a class="download-btn image" 
+                   href="{{ image_output_url  }}"
+                   target="_blank">
+                   🖼️ Download Processed Image
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="developer-info">
+          <h3>Developed By</h3>
+          <p class="name">Dr. Rohit Sharma</p>
+          <p class="designation">Scientist, Department of Processing and Food Engineering</p>
+          <p class="designation">Punjab Agricultural University, Ludhiana-141004</p>
+        </div>
+        <div class="contact-info">
+          <h4>Contact Information</h4>
+          <div class="contact-item">
+            <span class="icon">🌐</span>
+            <a href="https://rohitsharmapfe.blogspot.com/" target="_blank">Blogspot</a>
+            </div>
+          <div class="contact-item">
+            <span class="icon">📧</span>
+            <a>rohit.sharma@pau.edu</a>
+          </div>
+          <div class="contact-item">
+            <span class="icon">📱</span>
+            <a href="tel:+0000000000">+91 00000000</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Pea Seed Health Prediction System. All rights reserved. | Punjab Agricultural University</p>
+      </div>
+    </footer>
+<script>
+function openModal(img) {
+  var modal = document.getElementById("imageModal");
+  var modalImg = document.getElementById("modalImage");
+  var captionText = document.getElementById("caption");
+
+  modal.style.display = "block";
+  modalImg.src = img.src;
+  captionText.innerHTML = img.alt;
+}
+
+function closeModal() {
+  document.getElementById("imageModal").style.display = "none";
+}
+
+// Optional: close modal if user clicks outside the image
+window.onclick = function(event) {
+  var modal = document.getElementById("imageModal");
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+</body>
+</html>

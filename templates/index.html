@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pea Seed Health Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='indexstyle.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>🌱 Pea Seed Health Prediction</h1>
+            <p>ML-powered system to detect and classify individual pea seeds as <b>Healthy</b> or <b>Unhealthy</b> for smarter crop management</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="main-content">
+            <section class="info-section">
+                <h2>🔍 How It Works</h2>
+                <p>Our machine learning model analyzes your uploaded seed image and automatically <b>labels each seed</b> as Healthy or Unhealthy. 
+                    This helps you quickly identify problem areas and take timely preventive action.</p>
+                
+                <ul class="features">
+                    <li>Automatic seed-by-seed classification (Healthy / Unhealthy)</li>
+                    <li>Visual labels drawn on the seeds for easy inspection</li>
+                    <li>Early detection of unhealthy seeds for better crop yield</li>
+                    <li>Downloadable health reports with classification results</li>
+                    <li>Responsive, mobile-friendly interface</li>
+                </ul>
+
+                <p style="margin-top: 1.5rem; font-style: italic; color: #4F7942;">
+                    Simply upload a clear image of your pea seeds and get instant results!
+                </p>
+            </section>
+
+            <section class="upload-section">
+                <h2>📸 Upload Seeds Image</h2>       
+                <form class="upload-form" action="/pea_seed_analyzer" method="POST" enctype="multipart/form-data">
+                <div class="file-upload-area" id="uploadArea">
+                    <input type="file" name="imagefile" class="file-input" id="fileInput" accept="image/*" required style="display:none;">
+                    <div id="uploadContent">
+                    <div class="upload-icon">📁</div>
+                    <div class="upload-text">Select your pee seeds image</div>
+                    <div class="upload-hint">Supports JPG, PNG, GIF (max 10MB)</div>
+                    </div>
+                    <img id="previewImage" src="" alt="Preview" style="display:none; width:100%; max-width:400px; height:auto; border-radius:8px; margin-top:10px; object-fit:contain">
+                </div>
+                <button type="submit" class="submit-btn">
+                    Analyze Pea Seeds Health
+                </button>
+                </form>
+            </section>
+        </div>
+    </main>
+    <footer class="footer">
+  <div class="footer-content">
+    
+    <!-- Left: Developer Info -->
+    <div class="developer-info">
+      <h3>Developed By</h3>
+      <p class="name">Dr. Rohit Sharma</p>
+      <p class="designation">Scientist, Department of Processing and Food Engineering</p>
+      <p class="designation">Punjab Agricultural University, Ludhiana-141004</p>
+    </div>
+    
+    <!-- Right: Contact Info -->
+    <div class="contact-info">
+      <h4>📞 Contact Information</h4>
+      <div class="contact-item">
+        <span class="icon">🌐</span>
+        <a href="https://rohitsharmapfe.blogspot.com/" target="_blank">spot</a>
+      </div>
+      <div class="contact-item">
+        <span class="icon">📧</span>
+        <a>rohit.sharma@pau.edu</a>
+      </div>
+      <div class="contact-item">
+        <span class="icon">📱</span>
+        <a href="tel:+0000000000">+91 00000000</a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Footer Bottom -->
+  <div class="footer-bottom">
+    <p>&copy; 2025 Pea Seed Health Prediction System. All rights reserved. | Punjab Agricultural University</p>
+  </div>
+</footer>
+</body>
+<script>
+  const fileInput = document.getElementById("fileInput");
+  const uploadArea = document.getElementById("uploadArea");
+  const uploadContent = document.getElementById("uploadContent");
+  const previewImage = document.getElementById("previewImage");
+
+  // Clicking the upload area triggers file input
+  uploadArea.addEventListener("click", () => fileInput.click());
+
+  fileInput.addEventListener("change", () => {
+    const file = fileInput.files[0];
+    if (file) {
+      previewImage.src = URL.createObjectURL(file);
+      previewImage.style.display = "block";
+      uploadContent.style.display = "none"; // hide icon + text
+    } else {
+      previewImage.style.display = "none";
+      uploadContent.style.display = "block";
+    }
+  });
+</script>
+</html>
