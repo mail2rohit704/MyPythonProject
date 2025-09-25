@@ -185,7 +185,7 @@ for j, cnt in enumerate(contours):
     masked_seed = cv2.bitwise_and(grain, grain, mask=mask_crop)
 
     # Label the grain image (crop) for PDF
-    #labeled_image = grain.copy()  # use the original cropped grain
+    labeled_image = grain.copy()  # use the original cropped grain
     #cv2.putText(labeled_image, str(i), (5, 15), 
                 #cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA)
 
